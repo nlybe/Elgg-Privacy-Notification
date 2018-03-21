@@ -1,0 +1,46 @@
+/**
+ * Elgg Privacy Notification plugin
+ * @package privacy_notification
+ */
+
+#privacy_terms {
+    width: 100%; 
+    max-height: 400px;
+    overflow-y: scroll;
+    border: 1px solid #ebebeb;
+}
+
+#privacy_terms div {
+    padding: 20px;
+}
+
+/*#privacy_terms p {
+    padding: 3px 8px;
+}*/
+
+.privacy_terms_btn_box {
+    display: block; 
+    float: right; 
+    clear: both;
+}
+
+.privacy_terms_btn_box input[type="submit"] {
+    background-color: #bbcf0a;
+}
+
+.privacy_terms_btn_box input[type="submit"]:hover {
+    background: #a9ba15;
+}
+
+.privacy_terms_btn_box input[type="submit"]:disabled {
+    color: inherit;
+    background-color: #dedede;
+}
+
+.elgg-form-privacy-notification-acceptance .elgg-foot {
+    margin-top: 20px;
+}
+
+.elgg-form-privacy-notification-acceptance label {
+    font-weight: normal;
+}
