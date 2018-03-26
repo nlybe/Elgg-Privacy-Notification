@@ -77,9 +77,17 @@ function privacy_notification_accept_on_registration($hook, $type, $result, $par
     if (!PrivacyNotificationOptions::isEnabledOnRegistrattion()) {
         return $result;
     }    
-    $user = $params['user'];
     
-    $user->pn_acceptance = time();
+    $user = $params['user'];
+    $acceptance = get_input("accept_privacy_notification");
+    if (($user instanceof \ElggUser) && $acceptance == 'yes') {    
+        $user->pn_acceptance = time();
+        
+        $user->pn_ip = sanitize_string(_elgg_services()->request->getClientIp());
+        $ua = PrivacyNotificationOptions::getBrowser();
+        $user->pn_browser = $ua['name']." ".$ua['version']." (".$ua['platform'].")";
+        $user->save();
+    }
     
     return $result;
 }
