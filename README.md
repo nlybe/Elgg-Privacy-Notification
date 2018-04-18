@@ -13,6 +13,7 @@ Display privacy notification for logged-in users
 - Option to list's of users who have accepted or not the privacy notification. For viewing lists, the [DataTables API](https://github.com/nlybe/Elgg-DataTablesAPI) plugin is suggested.
 - Option to require acceptance of privacy notification on registration form.
 - IP address and browser are tracked on privacy acceptance.
+- Option to use invite link for users who haven't accepted the privacy notification yet. 
 
 ## Acknowledgements
 

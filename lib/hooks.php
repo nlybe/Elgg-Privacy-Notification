@@ -102,9 +102,9 @@ function privacy_notification_accept_on_registration($hook, $type, $result, $par
  * @return array
  */
 function privacy_notification_walled_garden_hook($hook, $type, $return_value, $params) {
-    $add = array();
-    
+    $add = [];
     $add[] = 'privacy_notification';
+    $add[] = 'privacy_notification/.*';
     
     if (is_array($return_value)) {
         $add = array_merge($add, $return_value);
