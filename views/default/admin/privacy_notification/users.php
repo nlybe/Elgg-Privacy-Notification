@@ -36,17 +36,23 @@ if ($entities) {
     if (elgg_is_active_plugin('datatables_api')) {
         
         $dt_options = [];
-        $dt_options['dt_titles'] = array(
+        $dt_options['dt_titles'] = [
             elgg_echo('privacy_notification:admin:users:table:header:id'),
             elgg_echo('privacy_notification:admin:users:table:header:name'),
             elgg_echo('privacy_notification:admin:users:table:header:username'),
             elgg_echo('privacy_notification:admin:users:table:header:email'),
-            elgg_echo('privacy_notification:admin:users:table:header:accepted'),
-            elgg_echo('privacy_notification:admin:users:table:header:ip'),
-            elgg_echo('privacy_notification:admin:users:table:header:browser'),
-            elgg_echo('privacy_notification:admin:users:table:header:actions'),
-        );
+        ];        
+        if ($type == 'accepted') { 
+            $dt_options['dt_titles'][] = elgg_echo('privacy_notification:admin:users:table:header:accepted');
+            $dt_options['dt_titles'][] = elgg_echo('privacy_notification:admin:users:table:header:ip');
+            $dt_options['dt_titles'][] = elgg_echo('privacy_notification:admin:users:table:header:browser');
+        }
+        else {
+            $dt_options['dt_titles'][] = elgg_echo('privacy_notification:admin:users:table:header:invite_url');
+        }        
+        $dt_options['dt_titles'][] = elgg_echo('privacy_notification:admin:users:table:header:actions');
 
+        
         $dt_data = [];
         foreach ($entities as $e) {
             $dt_data_tmp = [];
@@ -71,9 +77,21 @@ if ($entities) {
             $dt_data_tmp['email'] = elgg_view('output/email', array(
                 'value' => $e->email,
             ));
-            $dt_data_tmp['accepted'] = $e->pn_acceptance?elgg_get_friendly_time($e->pn_acceptance):'';
-            $dt_data_tmp['ip'] = $e->pn_ip;
-            $dt_data_tmp['browser'] = $e->pn_browser;
+            
+            if ($type == 'accepted') { 
+                $dt_data_tmp['accepted'] = $e->pn_acceptance?elgg_get_friendly_time($e->pn_acceptance):'';
+                $dt_data_tmp['ip'] = $e->pn_ip;
+                $dt_data_tmp['browser'] = $e->pn_browser;
+            }
+            else {            
+                $invite_url = PrivacyNotificationOptions::getInviteUrl($e);
+                $dt_data_tmp['invite_url'] = elgg_view('output/url', [
+                    "name" => "invite_{$e->getGUID()}",
+                    "text" => $invite_url,
+                    "href" => $invite_url,
+                    'is_trusted' => true,
+                ]);
+            }
             
             $text = elgg_echo("privacy_notification:accept:set");
             if ($e->pn_acceptance) {
@@ -84,7 +102,7 @@ if ($entities) {
                 "text" => $text,
                 "href" => elgg_normalize_url("action/privacy_notification/acceptance?user_guid={$e->getGUID()}"),
                 "is_action" => true,
-                'is_trusted' => true,
+                "is_trusted" => true,
             ]);
             array_push($dt_data, $dt_data_tmp);        
         }

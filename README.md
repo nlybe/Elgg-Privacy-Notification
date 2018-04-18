@@ -1,5 +1,5 @@
 Privacy Notification
-===================
+====================
 ![Elgg 2.3](https://img.shields.io/badge/Elgg-2.3-orange.svg?style=flat-square)
 
 Display privacy notification for logged-in users

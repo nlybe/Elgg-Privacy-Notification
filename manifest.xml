@@ -3,7 +3,7 @@
     <name>Privacy Notification</name>
     <id>privacy_notification</id>
     <author>Nikos Lyberakis</author>
-    <version>2.3.1</version>
+    <version>2.3.2</version>
     <category>bundled</category>
     <category>advatera</category>
     <description>Display privacy notification for logged-in users</description>

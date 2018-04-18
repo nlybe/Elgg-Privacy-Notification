@@ -33,10 +33,6 @@ class PrivacyNotificationOptions {
      * @return boolean
      */
     Public Static function hasAcceptPN($user = null) {
-        if (!elgg_is_logged_in()) {
-            return false;
-        }
-        
         if (elgg_is_admin_logged_in()) {
             return true;
         }
@@ -208,5 +204,27 @@ class PrivacyNotificationOptions {
             'platform'  => $platform,
             'pattern'    => $pattern
         );
-    }             
+    }  
+    
+    /**
+     * Get invite url based on site url invite code
+     * 
+     * @param type $user
+     * @return type
+     */
+    Public Static function getInviteUrl($user = null) {
+
+        $url = elgg_get_site_url();
+        if ($user instanceof \ElggUser) {
+            $elements = array(
+                'user_guid' => $user->getGUID(),
+                'invitecode' => generate_invite_code($user->username),
+            );
+            
+            $url = elgg_normalize_url("privacy_notification/index");
+            return elgg_http_add_url_query_elements($url, $elements);
+        }
+
+        return $url;
+    }
 }

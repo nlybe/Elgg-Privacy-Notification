@@ -62,7 +62,7 @@ function privacy_notification_init() {
     
     // Register actions
     $action_path = elgg_get_plugins_path() . 'privacy_notification/actions/privacy_notification';
-    elgg_register_action('privacy_notification/acceptance', "$action_path/acceptance.php"); 
+    elgg_register_action('privacy_notification/acceptance', "$action_path/acceptance.php", 'public'); 
 }
 
 /**
@@ -80,8 +80,25 @@ function privacy_notification_river_page_handler($page) {
 
     $vars['page_type'] = $page_type;
 
-    if (!elgg_get_logged_in_user_guid()) {
-        echo elgg_view_resource("privacy_notification/terms", $vars);
+    
+    if (!elgg_is_logged_in()) {
+        $user_guid = get_input('user_guid');
+        $invitecode = get_input('invitecode');
+        
+        $user = get_entity($user_guid);
+        if (PrivacyNotificationOptions::privacyNotificationIsSet() && PrivacyNotificationOptions::hasAcceptPN($user)) {
+            forward(elgg_get_site_url());
+            return true;
+        }
+        
+        if (elgg_validate_invite_code($user->username,$invitecode)) {
+            $vars['user_guid'] = $user_guid;
+            echo elgg_view_resource("privacy_notification/index", $vars);
+        }
+        else {
+            // just show the privacy notifications
+            echo elgg_view_resource("privacy_notification/terms", $vars);
+        }
     }
     else if (
             PrivacyNotificationOptions::privacyNotificationIsSet() && 

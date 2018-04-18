@@ -9,7 +9,7 @@ $language = array(
     'privacy_notification' => 'Privacy Notification',
     
     'privacy_notification:index:title' => 'Privacy Notification',
-    'privacy_notification:index:intro' => 'You must accept the terms below in order to be able to browse on this site.<br />Scroll down while reading the privacy notification and activate the button to accept.',
+    'privacy_notification:index:intro' => 'Dear %s, you must accept the terms below in order to be able to browse on this site.<br />Scroll down while reading the privacy notification and activate the button to accept.',
     'privacy_notification:btn:accept' => 'Accept',
     'privacy_notification:btn:remove_account' => 'Account Removal',
     'privacy_notification:accept:set' => 'Set privacy acceptance',
@@ -38,9 +38,11 @@ $language = array(
     'privacy_notification:admin:users:table:header:accepted' => 'Accepted',
     'privacy_notification:admin:users:table:header:ip' => 'IP Address',
     'privacy_notification:admin:users:table:header:browser' => 'Browser',
+    'privacy_notification:admin:users:table:header:invite_url' => 'Invite URL',
     'privacy_notification:admin:users:table:header:actions' => 'Actions',
     'privacy_notification:admin:users:view_user' => 'View user',
     'admin:privacy_notification:no_results' => 'No results',
+    'privacy_notification:admin:users:invite' => 'Invite URL',
     
     // settings
     'privacy_notification:settings:no' => "No",
