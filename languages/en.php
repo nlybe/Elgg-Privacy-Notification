@@ -16,7 +16,7 @@ $language = array(
     'privacy_notification:accept:unset' => 'Unset privacy acceptance',
     
     'privacy_notification:action:acceptance:removed' => "Privacy Notification marked as 'not accepted'",
-    'privacy_notification:action:acceptance:added' => "You successfully accepted Privacy Notification",
+    'privacy_notification:action:acceptance:added' => "%s, you successfully accepted Privacy Notification",
     'privacy_notification:action:acceptance:error:logged_out' => "Invalid permission for this action",
     
     'privacy_notification:registration:terms' => 'Privacy Notification',

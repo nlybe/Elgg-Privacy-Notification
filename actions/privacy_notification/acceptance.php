@@ -30,7 +30,7 @@ if (!empty($user_guid)) {
                 $user->pn_browser = $ua['name']." ".$ua['version']." (".$ua['platform'].")";
             }
             $user->save();
-            system_message(elgg_echo("privacy_notification:action:acceptance:added"));
+            system_message(elgg_echo("privacy_notification:action:acceptance:added", [$user->name]));
         }
     } 
     else {
@@ -45,9 +45,5 @@ if (elgg_is_admin_logged_in()) {
     forward(REFERER);
 }
 
-
-if (!elgg_is_logged_in() && $user instanceof \ElggUser) {
-    login($user);
-}
 
 forward(elgg_get_site_url());
