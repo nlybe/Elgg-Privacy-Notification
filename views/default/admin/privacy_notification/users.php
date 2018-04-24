@@ -36,7 +36,7 @@ else {
     $dt_options['headers'][] = ['name' => 'invite_url', 'label' => elgg_echo('privacy_notification:admin:users:table:header:invite_url')];
 }
 
-$dt_options['headers'][] = ['name' => 'actions', 'label' => elgg_echo('entity_lists:admin:elgg_objects:table:header:actions')];
+$dt_options['headers'][] = ['name' => 'actions', 'label' => elgg_echo('privacy_notification:admin:users:table:header:actions')];
 
 
 $content = elgg_view('datatables_api/dtapi_ajax', $dt_options);
