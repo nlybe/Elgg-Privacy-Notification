@@ -2,7 +2,7 @@ Privacy Notification
 ====================
 ![Elgg 2.3](https://img.shields.io/badge/Elgg-2.3-orange.svg?style=flat-square)
 
-Display privacy notification for logged-in users
+Display privacy notification for community members. Useful for General Data Protection Regulation (GDPR) compliance.
 
 ## Features
 
@@ -14,6 +14,12 @@ Display privacy notification for logged-in users
 - Option to require acceptance of privacy notification on registration form.
 - IP address and browser are tracked on privacy acceptance.
 - Option to use invite link for users who haven't accepted the privacy notification yet. 
+
+## Installation
+Use composer to install this plugin. On site root folder, run the command:
+```
+composer require nlybe/privacy_notification
+```
 
 ## Acknowledgements
 
