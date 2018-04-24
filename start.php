@@ -66,7 +66,7 @@ function privacy_notification_init() {
 }
 
 /**
- * New river page handler: replace the core river
+ * privacy_notification page handler
  * 
  * @param type $page
  * @return boolean
@@ -77,37 +77,41 @@ function privacy_notification_river_page_handler($page) {
     // make a URL segment available in page handler script
     $page_type = elgg_extract(0, $page, 'index');
     $page_type = preg_replace('[\W]', '', $page_type);
-
     $vars['page_type'] = $page_type;
 
-    
-    if (!elgg_is_logged_in()) {
-        $user_guid = get_input('user_guid');
-        $invitecode = get_input('invitecode');
-        
-        $user = get_entity($user_guid);
-        if (PrivacyNotificationOptions::privacyNotificationIsSet() && PrivacyNotificationOptions::hasAcceptPN($user)) {
-            forward(elgg_get_site_url());
-            return true;
+    if ($page_type == 'users') {
+        $vars['type'] = elgg_extract(1, $page);
+        echo elgg_view_resource("privacy_notification/users", $vars);
+    }
+    else {
+        if (!elgg_is_logged_in()) {
+            $user_guid = get_input('user_guid');
+            $invitecode = get_input('invitecode');
+
+            $user = get_entity($user_guid);
+            if (PrivacyNotificationOptions::privacyNotificationIsSet() && PrivacyNotificationOptions::hasAcceptPN($user)) {
+                forward(elgg_get_site_url());
+                return true;
+            }
+
+            if (elgg_validate_invite_code($user->username,$invitecode)) {
+                $vars['user_guid'] = $user_guid;
+                echo elgg_view_resource("privacy_notification/index", $vars);
+            }
+            else {
+                // just show the privacy notifications
+                echo elgg_view_resource("privacy_notification/terms", $vars);
+            }
         }
-        
-        if (elgg_validate_invite_code($user->username,$invitecode)) {
-            $vars['user_guid'] = $user_guid;
+        else if (
+                PrivacyNotificationOptions::privacyNotificationIsSet() && 
+                !PrivacyNotificationOptions::hasAcceptPN()) {
+
             echo elgg_view_resource("privacy_notification/index", $vars);
         }
         else {
-            // just show the privacy notifications
-            echo elgg_view_resource("privacy_notification/terms", $vars);
+            forward(elgg_get_site_url());
         }
-    }
-    else if (
-            PrivacyNotificationOptions::privacyNotificationIsSet() && 
-            !PrivacyNotificationOptions::hasAcceptPN()) {
-        
-        echo elgg_view_resource("privacy_notification/index", $vars);
-    }
-    else {
-        forward(elgg_get_site_url());
     }
     return true;
 }

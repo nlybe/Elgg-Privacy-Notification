@@ -18,7 +18,8 @@
         }
     ],
     "require": {
-        "composer/installers": ">=1.0.8"
+        "composer/installers": ">=1.0.8",
+        "nlybe/datatables_api": ">=2.3.8"
     },        
     "extra": {
         "installer-name": "privacy_notification"
