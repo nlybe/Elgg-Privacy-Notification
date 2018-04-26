@@ -11,6 +11,7 @@ $db_prefix = elgg_get_config('dbprefix');
 $options = array(
     'type' => 'user',
     'count' => true,
+    'limit' => 0,
 );
 
 $options["joins"] = [];
@@ -35,7 +36,7 @@ if ($search && !empty($search['value'])) {
 $totalEntries = elgg_get_entities_from_metadata($options);
 
 $options['count'] = false;
-$options['limit'] = max ((int) get_input("limit", elgg_get_config('default_limit')), 0);
+$options['limit'] = max ((int) get_input("length", elgg_get_config('default_limit')), 0);
 $options['offset'] = sanitise_int(get_input ("start", 0), false);
 $entities = elgg_get_entities_from_metadata($options);
 

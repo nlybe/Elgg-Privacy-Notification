@@ -38,7 +38,6 @@ else {
 
 $dt_options['headers'][] = ['name' => 'actions', 'label' => elgg_echo('privacy_notification:admin:users:table:header:actions')];
 
-
 $content = elgg_view('datatables_api/dtapi_ajax', $dt_options);
 
 echo elgg_format_element('div', ['style' => 'margin: 0 0 10px;'], elgg_view_title($title));
