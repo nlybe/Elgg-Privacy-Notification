@@ -28,7 +28,7 @@ class PrivacyNotificationOptions {
     }
     
     /**
-     * Check if river grouping is enabled for site administrators
+     * Check if user has accepted the privacy notification
      * 
      * @return boolean
      */
@@ -227,4 +227,34 @@ class PrivacyNotificationOptions {
 
         return $url;
     }
+    
+    /**
+     * Check if need anonymize user, depending on several criteria
+     * 
+     * @return boolean
+     */
+    Public Static function anonymizeUser($user = null) { 
+        // do not anonymize if this option is not enabled in settings
+        $anonymize_users = elgg_get_plugin_setting('anonymize_users', self::PLUGIN_ID);
+        if ($anonymize_users != self::PARAM_YES) {
+            return false;
+        }
+        
+        // do not anonymize if not entity user
+        if (!($user instanceof \ElggUser)) {
+            return false;
+        }
+        
+        // do not anonymize if required user is admin
+        if ($user->isAdmin()) {
+            return false;
+        }
+        
+        // do not anonymize if has accepted the privacy notification
+        if ($user->pn_acceptance) {
+            return false;
+        }        
+        
+        return true;
+    }    
 }

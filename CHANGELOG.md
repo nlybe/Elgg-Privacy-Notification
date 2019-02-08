@@ -1,3 +1,6 @@
+### 2.3.4 (July 2018)
+* Added option to anonymize users who haven't accept the privacy notification, if enabled in settings
+
 ### 2.3.3 (Apr 2018)
 * Updated: code improvements for using server-side options that DataTables provides through datatable-api plugin
 

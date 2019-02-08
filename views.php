@@ -6,6 +6,6 @@
 
 return [
     'default' => [
-        
+        'privacy_notification/graphics/' => __DIR__ . '/graphics',
     ],
 ];

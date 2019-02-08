@@ -150,3 +150,172 @@ function privacy_notification_user_menu_setup($hook, $type, $return, $params) {
 
     return $return;
 }
+
+/**
+ * Replace various views
+ * 
+ * @param type $hook
+ * @param type $type
+ * @param type $return
+ * @param type $params
+ * @return type
+ */
+function privacy_notification_views_hook($hook, $type, $return, $params) {
+    $check_hook = ($hook == 'view');
+    if (!$check_hook) {
+        return $return;
+    }
+ 
+    $anonymize_users = elgg_get_plugin_setting('anonymize_users', PrivacyNotificationOptions::PLUGIN_ID);
+    if ($anonymize_users != PrivacyNotificationOptions::PARAM_YES) {
+        return $return;
+    }
+    
+    switch ($type) {
+        case "user/elements/summary":
+            return elgg_view('privacy_notification/user/elements/summary', $params['vars']);
+            break;
+        case "page/elements/by_line":
+            return elgg_view('privacy_notification/page/elements/by_line', $params['vars']);
+            break;
+        case "navigation/menu/user_hover":
+            return elgg_view('privacy_notification/navigation/menu/user_hover', $params['vars']);
+            break;
+            
+        default:
+            return $return;
+    } 
+
+    return $return;
+}
+
+/**
+ * Replace river elements views
+ * 
+ * @param type $hook
+ * @param type $type
+ * @param type $return
+ * @param type $params
+ * @return type
+ */
+function privacy_notification_river_views_hook($hook, $type, $return, $params) {
+    $check_hook = ($hook == 'view');
+    if (!$check_hook) {
+        return $return;
+    }
+ 
+    $anonymize_users = elgg_get_plugin_setting('anonymize_users', PrivacyNotificationOptions::PLUGIN_ID);
+    if ($anonymize_users != PrivacyNotificationOptions::PARAM_YES) {
+        return $return;
+    }
+    
+    switch ($type) {
+        case "river/elements/summary":
+            return elgg_view('privacy_notification/river/elements/summary', $params['vars']);
+            break;
+        case "river/elements/body":
+            return elgg_view('privacy_notification/river/elements/body', $params['vars']);
+            break;
+        case "river/user/default/profileiconupdate":
+            return elgg_view('privacy_notification/river/user/default/profileiconupdate', $params['vars']);
+            break;
+        case "river/user/default/profileupdate":
+            return elgg_view('privacy_notification/river/user/default/profileupdate', $params['vars']);
+            break;
+        case "river/object/thewire/create":
+            return elgg_view('privacy_notification/river/object/thewire/create', $params['vars']);
+            break;
+        case "river/object/discussion_reply/create":
+            return elgg_view('privacy_notification/river/object/discussion_reply/create', $params['vars']);
+            break;
+            
+        default:
+            return $return;
+    } 
+
+    return $return;
+}
+
+/**
+ * Replace various object views
+ * 
+ * @param type $hook
+ * @param type $type
+ * @param type $return
+ * @param type $params
+ * @return type
+ */
+function privacy_notification_object_views_hook($hook, $type, $return, $params) {
+    $check_hook = ($hook == 'view');
+    if (!$check_hook) {
+        return $return;
+    }
+ 
+    $anonymize_users = elgg_get_plugin_setting('anonymize_users', PrivacyNotificationOptions::PLUGIN_ID);
+    if ($anonymize_users != PrivacyNotificationOptions::PARAM_YES) {
+        return $return;
+    }
+    
+    switch ($type) {
+        case "object/page_top":
+            return elgg_view('privacy_notification/object/page_top', $params['vars']);
+            break;
+        case "object/comment":
+            return elgg_view('privacy_notification/object/comment', $params['vars']);
+            break;
+        case "object/thewire":
+            return elgg_view('privacy_notification/object/thewire', $params['vars']);
+            break;
+            
+        default:
+            return $return;
+    } 
+
+    return $return;
+}
+
+
+/*
+ * Change avatar for users who haven't accepted the privacy, if anonymize users is enable in settings
+ * 
+ * @param type $hook
+ * @param type $type
+ * @param type $url
+ * @param type $params
+ * @return type
+ */
+function privacy_notification_icon_handler($hook, $type, $url, $params) {
+    if (elgg_is_admin_logged_in()) {
+        return $url;
+    }
+    
+    if (!PrivacyNotificationOptions::anonymizeUser($params['entity'])) {
+        return $url;
+    }
+
+    $size = $params['size'];
+    return elgg_get_simplecache_url("privacy_notification/graphics/default$size.png");
+}
+
+/**
+ * 
+ * 
+ * @param type $hook_name
+ * @param type $entity_type
+ * @param type $return_value
+ * @param type $params
+ * @return type
+ */
+//function privacy_notification_user_menu_setup_clear($hook_name, $entity_type, $return, $params) {
+//    
+//    $entity = elgg_extract('entity', $params);
+//    if (!($entity instanceof \ElggUser)) {
+//        return $return;
+//    }
+//    
+//    if (PrivacyNotificationOptions::anonymizeUser($entity)) {
+//        return [];
+//    }
+//
+//    return $return;
+//}

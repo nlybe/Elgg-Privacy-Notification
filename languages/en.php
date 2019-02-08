@@ -21,6 +21,8 @@ $language = array(
     
     'privacy_notification:registration:terms' => 'Privacy Notification',
     'privacy_notification:registration:label' => 'I have read and accept the %s',
+    'privacy_notification:anonymize:user:label' => 'Hidden User',
+    'privacy_notification:anonymize:user:note' => 'This user is hidden due to privacy notification policy',
     
     // admin area
     'admin:privacy_notification:datatable_api:missing' => 'The DataTables API plugin is not enabled',
@@ -56,6 +58,8 @@ $language = array(
     'privacy_notification:settings:privacy_terms:help' => 'Enter the text for privacy notification which users have to accept.',
     'privacy_notification:settings:enable_remove_account' => 'Add "Account Removal" button',
     'privacy_notification:settings:enable_remove_account:help' => 'Select Yes if want to add the "Account Removal" button on privacy acceptance form. This requires the <a href="https://github.com/ColdTrick/account_removal" target="_blank">account_removal plugin</a>.',
+    'privacy_notification:settings:anonymize_users' => 'Anonymize Users',
+    'privacy_notification:settings:anonymize_users:help' => 'Select Yes if want to hide user\'s profile who haven\'t accepted the privacy policy.',
     
 );
 

@@ -44,3 +44,7 @@
 .elgg-form-privacy-notification-acceptance label {
     font-weight: normal;
 }
+
+.elgg-menu-hover .pn_user_notice {
+    padding: 5px 10px;
+}

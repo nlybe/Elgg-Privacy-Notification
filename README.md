@@ -13,13 +13,19 @@ Display privacy notification for community members. Useful for General Data Prot
 - Option to list's of users who have accepted or not the privacy notification. For viewing lists, the [DataTables API](https://github.com/nlybe/Elgg-DataTablesAPI) plugin is suggested.
 - Option to require acceptance of privacy notification on registration form.
 - IP address and browser are tracked on privacy acceptance.
-- Option to use invite link for users who haven't accepted the privacy notification yet. 
+- Option to use invite link for users who haven't accepted the privacy notification yet.
+- Option to anonymize users who haven't accept the privacy notification, if enabled in settings. Anonymized user are visible by administrators.
 
 ## Installation
 Use composer to install this plugin. On site root folder, run the command:
 ```
 composer require nlybe/privacy_notification
 ```
+
+## About option to anonymize users
+It is suggested to enable this option only on existing communities where users have already submitted content. For new communities it will no have any affect.
+If enable the Privacy Notification, some of the existing users may not accept the privacy notification, so by enabling the "Anonymize Users" option in plugin settings these users will not be visible and accessible from other users but their content will be still available.
+Also note that some modifications may be required for anonymizing users on content of 3rd party plugins.
 
 ## Acknowledgements
 

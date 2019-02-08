@@ -45,3 +45,12 @@ echo elgg_format_element('div', [], elgg_view_input('longtext', array(
     'required' => true,
 )));
 
+echo elgg_format_element('div', [], elgg_view_input('radio', array(
+    'name' => 'params[anonymize_users]',
+    'value' => ($plugin->anonymize_users?$plugin->anonymize_users:PrivacyNotificationOptions::PARAM_NO), 
+    'options' => $potential_yes_no, 
+    'align' => 'horizontal',
+    'label' => elgg_echo('privacy_notification:settings:anonymize_users'),
+    'help' => elgg_echo('privacy_notification:settings:anonymize_users:help'),
+)));
+
