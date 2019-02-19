@@ -23,22 +23,44 @@ if ($type == 'accepted') {
     );
 }
 else {
-    $options['wheres'][] = "NOT EXISTS ( SELECT 1 FROM {$db_prefix}metadata md, {$db_prefix}metastrings ms WHERE md.entity_guid = e.guid AND md.name_id = ms.id AND ms.string = 'pn_acceptance')";
+    $options['wheres'][] = "NOT EXISTS ( SELECT 1 FROM {$db_prefix}metadata md WHERE md.entity_guid = e.guid AND md.name = 'pn_acceptance')";
 }
 
 if ($search && !empty($search['value'])) {
     $query = sanitise_string($search['value']);
-		
-    array_push($options["joins"], "JOIN {$db_prefix}users_entity ge ON e.guid = ge.guid");
-    array_push($options["wheres"], "(ge.name LIKE '%$query%' OR ge.username LIKE '%$query%' OR ge.email LIKE '%$query%')");
+
+    $options["wheres"] = [
+        function(\Elgg\Database\QueryBuilder $qb, $alias) use ($query, $type) {
+            $ands = [];
+
+            if ($query && !empty($query)) {
+                $joined_alias = $qb->joinMetadataTable($alias, 'guid', 'name', 'inner', 'alias_1');
+                $ands[] = $qb->compare("$joined_alias.value", 'like', "%$query%", ELGG_VALUE_STRING);
+
+                $joined_alias = $qb->joinMetadataTable($alias, 'guid', 'username', 'inner', 'alias_2');
+                $ands[] = $qb->compare("$joined_alias.value", 'like', "%$query%", ELGG_VALUE_STRING);
+            
+                $joined_alias = $qb->joinMetadataTable($alias, 'guid', 'email', 'inner', 'alias_3');
+                $ands[] = $qb->compare("$joined_alias.value", 'like', "%$query%", ELGG_VALUE_STRING);
+            }
+
+            return $qb->merge($ands, 'OR');
+        }
+    ];
+
+    if ($type != 'accepted') {
+        $options['wheres'][] = "NOT EXISTS ( SELECT 1 FROM {$db_prefix}metadata md WHERE md.entity_guid = e.guid AND md.name = 'pn_acceptance')";
+    }
 }
 
-$totalEntries = elgg_get_entities_from_metadata($options);
+
+
+$totalEntries = elgg_get_entities($options);
 
 $options['count'] = false;
 $options['limit'] = max ((int) get_input("length", elgg_get_config('default_limit')), 0);
 $options['offset'] = sanitise_int(get_input ("start", 0), false);
-$entities = elgg_get_entities_from_metadata($options);
+$entities = elgg_get_entities($options);
 
 $dt_data = [];
 if ($entities) {    

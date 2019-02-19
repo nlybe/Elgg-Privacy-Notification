@@ -4,11 +4,6 @@
  * @package privacy_notification
  */
 
-//$cuser = elgg_get_logged_in_user_entity();
-//if (!$cuser) {
-//    register_error(elgg_echo("privacy_notification:action:acceptance:error:logged_out"));
-//}
-    
 $user_guid = (int) get_input("user_guid");
 
 if (!empty($user_guid)) {
@@ -18,7 +13,7 @@ if (!empty($user_guid)) {
             unset($user->pn_acceptance);
             unset($user->pn_ip);
             unset($user->pn_browser);
-            system_message(elgg_echo("privacy_notification:action:acceptance:removed"));
+            $system_message_txt = elgg_echo("privacy_notification:action:acceptance:removed");
         } 
         else {
             $user->pn_acceptance = time();
@@ -30,20 +25,20 @@ if (!empty($user_guid)) {
                 $user->pn_browser = $ua['name']." ".$ua['version']." (".$ua['platform'].")";
             }
             $user->save();
-            system_message(elgg_echo("privacy_notification:action:acceptance:added", [$user->name]));
+            $system_message_txt = elgg_echo("privacy_notification:action:acceptance:added", [$user->name]);
         }
     } 
     else {
-        register_error(elgg_echo("InvalidParameterException:NoEntityFound"));
+        return elgg_error_response(elgg_echo('InvalidParameterException:NoEntityFound'));
     }
 } 
 else {
-    register_error(elgg_echo("InvalidParameterException:MissingParameter"));
+    return elgg_error_response(elgg_echo('InvalidParameterException:MissingParameter'));
 }
 
+$forward_url = elgg_get_site_url();
 if (elgg_is_admin_logged_in()) {
-    forward(REFERER);
+    $forward_url = REFERER;
 }
 
-
-forward(elgg_get_site_url());
+return elgg_ok_response('', $system_message_tx, $forward_url);

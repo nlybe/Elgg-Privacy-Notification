@@ -61,6 +61,9 @@ function privacy_notification_acceptance_check_nav($hook, $type, $return, $param
 
     $return['identifier'] = 'privacy_notification';
 
+    // unset segments so the default:privacy_notification route will be used, as set in elgg-plugin.php
+    $return['segments'] = [];   
+    
     return $return;
 }
     
@@ -298,7 +301,7 @@ function privacy_notification_icon_handler($hook, $type, $url, $params) {
 }
 
 /**
- * 
+ * Disabled as anonymized is deprecated for Elgg v3.x
  * 
  * @param type $hook_name
  * @param type $entity_type

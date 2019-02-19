@@ -4,7 +4,7 @@
  * @package privacy_notification
  */
 
-$language = array(
+return [
 
     'privacy_notification' => 'Privacy Notification',
     
@@ -61,6 +61,4 @@ $language = array(
     'privacy_notification:settings:anonymize_users' => 'Anonymize Users',
     'privacy_notification:settings:anonymize_users:help' => 'Select Yes if want to hide user\'s profile who haven\'t accepted the privacy policy.',
     
-);
-
-add_translation('en', $language);
+];

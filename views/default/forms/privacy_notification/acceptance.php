@@ -50,11 +50,12 @@ echo elgg_view('privacy_notification/acceptance/extend', $vars);
         ));
     }
     
-    $btn = elgg_view('input/submit', array(
+    $btn = elgg_view_field([
+        '#type' => 'submit',
         'id' => 'privacy_terms_btn',
         'disabled' => 'disabled',
         'value' => elgg_echo('privacy_notification:btn:accept')
-    ));
+    ]);
     
     echo elgg_format_element('div', 
         ['class' => 'privacy_terms_btn_box'], 

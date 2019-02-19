@@ -1,10 +1,10 @@
 <?php
-
 /**
  * Elgg Privacy Notification plugin
  * @package privacy_notification
  */
-require_once(dirname(__FILE__) . '/lib/hooks.php');
+
+ require_once(dirname(__FILE__) . '/lib/hooks.php');
 
 elgg_register_event_handler('init', 'system', 'privacy_notification_init');
 
@@ -19,15 +19,11 @@ foreach ($identifiers as $identifier) {
  */
 function privacy_notification_init() {
 
-    // register a library of helper functions
-    elgg_register_library('elgg:privacy_notification', elgg_get_plugins_path() . 'privacy_notification/lib/privacy_notification.php');
-
     // register extra css
     elgg_extend_view('elgg.css', 'privacy_notification/privacy_notification.css');
 
-    // page handler for privacy_notification
-    elgg_register_page_handler('privacy_notification', 'privacy_notification_river_page_handler');
-    elgg_register_page_handler('profile', 'privacy_notification_profile_page_handler');
+    // Disabled as anonymized is deprecated for Elgg v3.x
+    // elgg_register_page_handler('profile', 'privacy_notification_profile_page_handler'); 
 
     // Check after login if user has accept the privacy notification
     elgg_register_plugin_hook_handler('login:forward', 'user', 'privacy_notification_acceptance_check');
@@ -58,7 +54,7 @@ function privacy_notification_init() {
     // change avatar for users who haven't accepted the privacy, if anonymize users is enable in settings
     elgg_register_plugin_hook_handler('entity:icon:url', 'user', 'privacy_notification_icon_handler', 900);
 
-//    // modify user menu list
+//    // modify user menu list - Disabled as anonymized is deprecated for Elgg v3.x
 //    elgg_register_plugin_hook_handler('register', 'menu:user_hover', 'privacy_notification_user_menu_setup_clear', 6000);
 
     elgg_extend_view('register/extend', 'privacy_notification/registration');
@@ -81,98 +77,48 @@ function privacy_notification_init() {
         ));
     }
 
-    // Register actions
-    $action_path = elgg_get_plugins_path() . 'privacy_notification/actions/privacy_notification';
-    elgg_register_action('privacy_notification/acceptance', "$action_path/acceptance.php", 'public');
 }
 
 /**
- * privacy_notification page handler
+ * Disabled as anonymized is deprecated for Elgg v3.x
  * 
- * @param type $page
- * @return boolean
- */
-function privacy_notification_river_page_handler($page) {
-    elgg_set_page_owner_guid(elgg_get_logged_in_user_guid());
-
-    // make a URL segment available in page handler script
-    $page_type = elgg_extract(0, $page, 'index');
-    $page_type = preg_replace('[\W]', '', $page_type);
-    $vars['page_type'] = $page_type;
-
-    if ($page_type == 'users') {
-        $vars['type'] = elgg_extract(1, $page);
-        echo elgg_view_resource("privacy_notification/users", $vars);
-    } else {
-        if (!elgg_is_logged_in()) {
-            $user_guid = get_input('user_guid');
-            $invitecode = get_input('invitecode');
-
-            $user = get_entity($user_guid);
-            if (PrivacyNotificationOptions::privacyNotificationIsSet() && PrivacyNotificationOptions::hasAcceptPN($user)) {
-                forward(elgg_get_site_url());
-                return true;
-            }
-
-            if (elgg_validate_invite_code($user->username, $invitecode)) {
-                $vars['user_guid'] = $user_guid;
-                echo elgg_view_resource("privacy_notification/index", $vars);
-            } else {
-                // just show the privacy notifications
-                echo elgg_view_resource("privacy_notification/terms", $vars);
-            }
-        } else if (
-                PrivacyNotificationOptions::privacyNotificationIsSet() &&
-                !PrivacyNotificationOptions::hasAcceptPN()) {
-
-            echo elgg_view_resource("privacy_notification/index", $vars);
-        } else {
-            forward(elgg_get_site_url());
-        }
-    }
-    return true;
-}
-
-/**
  * Custom Profile page handler, in order to check if have to anonymize user
- *
+ * 
  * @param array $page Array of URL segments passed by the page handling mechanism
  * @return bool
  */
-function privacy_notification_profile_page_handler($page) {
+// function privacy_notification_profile_page_handler($page) {
 
-    if (isset($page[0])) {
-        $username = $page[0];
-        $user = get_user_by_username($username);
-        elgg_set_page_owner_guid($user->guid);
-    } elseif (elgg_is_logged_in()) {
-        forward(elgg_get_logged_in_user_entity()->getURL());
-    }
+//     if (isset($page[0])) {
+//         $username = $page[0];
+//         $user = get_user_by_username($username);
+//         elgg_set_page_owner_guid($user->guid);
+//     } elseif (elgg_is_logged_in()) {
+//         forward(elgg_get_logged_in_user_entity()->getURL());
+//     }
 
-    // short circuit if invalid or banned username
-    if (!$user || ($user->isBanned() && !elgg_is_admin_logged_in())) {
-        register_error(elgg_echo('profile:notfound'));
-        forward();
-    }
+//     // short circuit if invalid or banned username
+//     if (!$user || ($user->isBanned() && !elgg_is_admin_logged_in())) {
+//         elgg_error_response(elgg_echo('profile:notfound'));
+//     }
     
-    if (PrivacyNotificationOptions::anonymizeUser($user) && !elgg_is_admin_logged_in()) {
-        register_error(elgg_echo('privacy_notification:anonymize:user:note'));
-        forward();        
-    }
+//     if (PrivacyNotificationOptions::anonymizeUser($user) && !elgg_is_admin_logged_in()) {
+//         elgg_error_response(elgg_echo('privacy_notification:anonymize:user:note'));
+//     }
 
-    $action = NULL;
-    if (isset($page[1])) {
-        $action = $page[1];
-    }
+//     $action = NULL;
+//     if (isset($page[1])) {
+//         $action = $page[1];
+//     }
 
-    if ($action == 'edit') {
-        // use the core profile edit page
-        echo elgg_view_resource('profile/edit');
-        return true;
-    }
+//     if ($action == 'edit') {
+//         // use the core profile edit page
+//         echo elgg_view_resource('profile/edit');
+//         return true;
+//     }
 
-    echo elgg_view_resource('profile/view', [
-        'username' => $page[0],
-    ]);
-    return true;
-}
+//     echo elgg_view_resource('profile/view', [
+//         'username' => $page[0],
+//     ]);
+//     return true;
+// }

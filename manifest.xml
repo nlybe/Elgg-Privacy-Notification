@@ -3,16 +3,16 @@
     <name>Privacy Notification</name>
     <id>privacy_notification</id>
     <author>Nikos Lyberakis</author>
-    <version>2.3.4</version>
-    <category>bundled</category>
-    <category>advatera</category>
+    <version>3.5</version>
+    <category>privacy</category>
     <description>Display privacy notification for logged-in users</description>
+    <repository>https://github.com/nlybe/Elgg-Privacy-Notification</repository>
     <website>https://github.com/nlybe/</website>
-    <copyright>(C) Nikos Lyberakis 2012 - 2018</copyright>
+    <copyright>(C) Nikos Lyberakis 2012 - 2019</copyright>
     <license>GNU General Public License version 2</license>
     <requires>
         <type>elgg_release</type>
-        <version>2.3.0</version>
+        <version>3.0</version>
     </requires>
     <suggests>
         <type>plugin</type>
@@ -21,7 +21,7 @@
     <suggests>
         <type>plugin</type>
         <name>datatables_api</name>
-        <version>2.3.8</version>
+        <version>3.9</version>
     </suggests>    
     <activate_on_install>false</activate_on_install>
 </plugin_manifest>

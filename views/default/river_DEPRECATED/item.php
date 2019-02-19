@@ -8,6 +8,7 @@
  * @uses $vars['item'] ElggRiverItem
  */
 
+
 // @todo remove this in Elgg 1.9
 global $_elgg_special_river_catch;
 if (!isset($_elgg_special_river_catch)) {

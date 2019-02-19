@@ -5,7 +5,7 @@
  */
 
 // restrict pages only to admins
-admin_gatekeeper();
+elgg_admin_gatekeeper();
 
 $type = get_input('what');
 if (!$type) {
