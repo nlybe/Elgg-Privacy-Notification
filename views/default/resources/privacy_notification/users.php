@@ -4,6 +4,7 @@
  * @package privacy_notification
  */
 
+
 $search = get_input('search');
 $type = elgg_extract('type', $vars, '');
 $db_prefix = elgg_get_config('dbprefix');

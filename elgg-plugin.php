@@ -9,13 +9,13 @@ return [
         'privacy_notification/acceptance' => ['access' => 'public'],
     ],
     'routes' => [
-        'default:privacy_notification' => [
-            'path' => '/privacy_notification/{index?}',
-            'resource' => 'privacy_notification/index',
-        ],
         'default:privacy_notification:users' => [
             'path' => '/privacy_notification/users/{type?}',
             'resource' => 'privacy_notification/users',
+        ],
+        'default:privacy_notification' => [
+            'path' => '/privacy_notification/{index?}',
+            'resource' => 'privacy_notification/index',
         ],
     ],
     'widgets' => [],

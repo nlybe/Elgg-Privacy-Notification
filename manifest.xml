@@ -3,7 +3,7 @@
     <name>Privacy Notification</name>
     <id>privacy_notification</id>
     <author>Nikos Lyberakis</author>
-    <version>3.5</version>
+    <version>3.6</version>
     <category>privacy</category>
     <description>Display privacy notification for logged-in users</description>
     <repository>https://github.com/nlybe/Elgg-Privacy-Notification</repository>

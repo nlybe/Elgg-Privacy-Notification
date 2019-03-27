@@ -1,3 +1,7 @@
+### 3.6 (Mar 2019)
+
+- Fixed issues on list of users accepted ot not accepted
+
 ### 3.5 (Dec 2018)
 
 - Upgraded to be compatible with Elgg 3.x
