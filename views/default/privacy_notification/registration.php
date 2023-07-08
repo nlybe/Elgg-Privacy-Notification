@@ -4,12 +4,11 @@
  * @package privacy_notification
  */
 
+use PrivacyNotification\PrivacyNotificationOptions;
+
 if (!PrivacyNotificationOptions::isEnabledOnRegistrattion()) {
     return;
 }
-
-$link_begin = "<a target='_blank' href='{$accept_terms}'>";
-$link_end = '</a>';
 
 $pn = elgg_view('output/url', array(
     'href' => elgg_normalize_url("privacy_notification"),

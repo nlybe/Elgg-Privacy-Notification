@@ -56,9 +56,7 @@ return [
     'privacy_notification:settings:enable_on_registration:help' => 'Select Yes if want to enable the acceptance of privacy notification during registration form.',
     'privacy_notification:settings:privacy_terms' => 'Privacy Notification Text',
     'privacy_notification:settings:privacy_terms:help' => 'Enter the text for privacy notification which users have to accept.',
-    'privacy_notification:settings:enable_remove_account' => 'Add "Account Removal" button',
-    'privacy_notification:settings:enable_remove_account:help' => 'Select Yes if want to add the "Account Removal" button on privacy acceptance form. This requires the <a href="https://github.com/ColdTrick/account_removal" target="_blank">account_removal plugin</a>.',
-    'privacy_notification:settings:anonymize_users' => 'Anonymize Users',
-    'privacy_notification:settings:anonymize_users:help' => 'Select Yes if want to hide user\'s profile who haven\'t accepted the privacy policy.',
+    // 'privacy_notification:settings:enable_remove_account' => 'Add "Account Removal" button',
+    // 'privacy_notification:settings:enable_remove_account:help' => 'Select Yes if want to add the "Account Removal" button on privacy acceptance form. This requires the <a href="https://github.com/ColdTrick/account_removal" target="_blank">account_removal plugin</a>.',
     
 ];

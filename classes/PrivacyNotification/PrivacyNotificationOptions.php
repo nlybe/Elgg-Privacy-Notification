@@ -4,6 +4,8 @@
  * @package privacy_notification
  */
 
+namespace PrivacyNotification;
+
 class PrivacyNotificationOptions {
 
     const PLUGIN_ID = 'privacy_notification';    // current plugin ID
@@ -12,7 +14,7 @@ class PrivacyNotificationOptions {
         
     /**
      * Get an array with site url identifiers, according the site pages
-     * Read more about Elgg URL identifiers at http://learn.elgg.org/en/2.0/guides/routing.html.
+     * Read more about Elgg URL identifiers at https://learn.elgg.org/en/4.3/guides/routing.html
      * 
      * @return array
      */
@@ -55,7 +57,6 @@ class PrivacyNotificationOptions {
      */
     Public Static function privacyNotificationIsSet() {
         $privacy_terms = elgg_get_plugin_setting('privacy_terms', self::PLUGIN_ID);
-
         if (!empty($privacy_terms)) {
             return true;
         }
@@ -69,7 +70,6 @@ class PrivacyNotificationOptions {
      */
     Public Static function getPrivacyNotificationText() {
         $privacy_terms = elgg_get_plugin_setting('privacy_terms', self::PLUGIN_ID);
-
         if (!empty($privacy_terms)) {
             return $privacy_terms;
         }
@@ -88,7 +88,6 @@ class PrivacyNotificationOptions {
         }
         
         $enable_on_registration = elgg_get_plugin_setting('enable_on_registration', self::PLUGIN_ID);
-
         if ($enable_on_registration == self::PARAM_YES) {
             return true;
         }
@@ -96,24 +95,24 @@ class PrivacyNotificationOptions {
         return false;
     }
     
-        /** 
-     * Check if privacy notification is enabled on settings
-     * 
-     * @return boolean
-     */
-    Public Static function isAccountRemovalBtnEnabled() {
-        if (!elgg_is_active_plugin("account_removal")) {
-            return false;
-        }
+    // /** 
+    //  * Check if privacy notification is enabled on settings
+    //  * 
+    //  * @return boolean
+    //  */
+    // Public Static function isAccountRemovalBtnEnabled() {
+    //     if (!elgg_is_active_plugin("account_removal")) {
+    //         return false;
+    //     }
         
-        $enable_remove_account = elgg_get_plugin_setting('enable_remove_account', self::PLUGIN_ID);
+    //     $enable_remove_account = elgg_get_plugin_setting('enable_remove_account', self::PLUGIN_ID);
 
-        if ($enable_remove_account == self::PARAM_YES) {
-            return true;
-        }
+    //     if ($enable_remove_account == self::PARAM_YES) {
+    //         return true;
+    //     }
         
-        return false;
-    }
+    //     return false;
+    // }
     
     /**
      * Track user's browser
@@ -227,34 +226,4 @@ class PrivacyNotificationOptions {
 
         return $url;
     }
-    
-    /**
-     * Check if need anonymize user, depending on several criteria
-     * 
-     * @return boolean
-     */
-    Public Static function anonymizeUser($user = null) { 
-        // do not anonymize if this option is not enabled in settings
-        $anonymize_users = elgg_get_plugin_setting('anonymize_users', self::PLUGIN_ID);
-        if ($anonymize_users != self::PARAM_YES) {
-            return false;
-        }
-        
-        // do not anonymize if not entity user
-        if (!($user instanceof \ElggUser)) {
-            return false;
-        }
-        
-        // do not anonymize if required user is admin
-        if ($user->isAdmin()) {
-            return false;
-        }
-        
-        // do not anonymize if has accepted the privacy notification
-        if ($user->pn_acceptance) {
-            return false;
-        }        
-        
-        return true;
-    }    
 }

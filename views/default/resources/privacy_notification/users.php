@@ -4,6 +4,7 @@
  * @package privacy_notification
  */
 
+use PrivacyNotification\PrivacyNotificationOptions;
 
 $search = get_input('search');
 $type = elgg_extract('type', $vars, '');
@@ -60,7 +61,7 @@ $totalEntries = elgg_get_entities($options);
 
 $options['count'] = false;
 $options['limit'] = max ((int) get_input("length", elgg_get_config('default_limit')), 0);
-$options['offset'] = sanitise_int(get_input ("start", 0), false);
+$options['offset'] = get_input ("start", 0);
 $entities = elgg_get_entities($options);
 
 $dt_data = [];

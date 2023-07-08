@@ -4,6 +4,8 @@
  * @package privacy_notification
  */
 
+use PrivacyNotification\PrivacyNotificationOptions;
+
 $user_guid = (int) get_input("user_guid");
 
 if (!empty($user_guid)) {
@@ -19,8 +21,8 @@ if (!empty($user_guid)) {
             $user->pn_acceptance = time();
             if (!elgg_is_admin_logged_in()) {
                 // record ip and browser only if not set by admin
-                $user->pn_ip = sanitize_string(_elgg_services()->request->getClientIp());
-
+                $user->pn_ip = filter_var( _elgg_services()->request->getClientIp(), FILTER_SANITIZE_STRING);
+                
                 $ua = PrivacyNotificationOptions::getBrowser();
                 $user->pn_browser = $ua['name']." ".$ua['version']." (".$ua['platform'].")";
             }
@@ -36,9 +38,4 @@ else {
     return elgg_error_response(elgg_echo('InvalidParameterException:MissingParameter'));
 }
 
-$forward_url = elgg_get_site_url();
-if (elgg_is_admin_logged_in()) {
-    $forward_url = REFERER;
-}
-
-return elgg_ok_response('', $system_message_tx, $forward_url);
+return elgg_ok_response('', $system_message_txt, REFERRER);

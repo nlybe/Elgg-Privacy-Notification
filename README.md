@@ -1,7 +1,7 @@
 Privacy Notification
 ====================
 
-![Elgg 3.0](https://img.shields.io/badge/Elgg-3.0-orange.svg?style=flat-square)
+![Elgg 4.3](https://img.shields.io/badge/Elgg-4.3-orange.svg?style=flat-square)
 
 Display privacy notification for community members. Useful for General Data Protection Regulation (GDPR) compliance.
 
@@ -35,3 +35,7 @@ Also note that some modifications may be required for anonymizing users on conte
 ## Acknowledgements
 
 - Plugin was initially developed and sponsored by [Advatera](https://my.advatera.com/ "Advatera")
+
+## Future improvements
+
+- Add again the option to remove account

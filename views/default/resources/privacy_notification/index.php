@@ -4,6 +4,8 @@
  * @package privacy_notification
  */
 
+use PrivacyNotification\PrivacyNotificationOptions;
+
 if (!elgg_is_logged_in()) {
     $user_guid = get_input('user_guid');
     $invitecode = get_input('invitecode');

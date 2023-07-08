@@ -8,7 +8,7 @@
         "privacy",
         "notification"
     ],
-    "homepage": "",
+    "homepage": "https://github.com/nlybe/Elgg-Privacy-Notification",
     "license": "GPL-2.0",
     "authors": [
         {
@@ -19,9 +19,12 @@
     ],
     "require": {
         "composer/installers": ">=1.0.8",
-        "nlybe/datatables_api": ">=3.9"
+        "nlybe/datatables_api": ">=4.13"
     },        
     "extra": {
         "installer-name": "privacy_notification"
-    }
+    },
+	"conflict": {
+		"elgg/elgg": "<4.3"
+	}
 }

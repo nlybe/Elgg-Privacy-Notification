@@ -4,7 +4,21 @@
  * @package privacy_notification
  */
 
+use PrivacyNotification\Elgg\Bootstrap;
+
+require_once(dirname(__FILE__) . '/lib/hooks.php');
+
 return [
+    'plugin' => [
+        'name' => 'Privacy Notification',
+		'version' => '4.7',
+		'dependencies' => [
+			'datatables_api' => [
+				'version' => '>4',
+			]
+		],
+	],
+    'bootstrap' => Bootstrap::class,
     'actions' => [
         'privacy_notification/acceptance' => ['access' => 'public'],
     ],
@@ -16,6 +30,7 @@ return [
         'default:privacy_notification' => [
             'path' => '/privacy_notification/{index?}',
             'resource' => 'privacy_notification/index',
+			'walled' => false,
         ],
     ],
     'widgets' => [],
@@ -26,7 +41,12 @@ return [
     ],
     'upgrades' => [],
     'settings' => [
-		'anonymize_users' => 'no',
+		'enable_on_registration' => 'no',
+	],
+	'view_extensions' => [
+		'elgg.css' => [
+			'privacy_notification/privacy_notification.css' => [],
+		],
 	],
 	
 ];
