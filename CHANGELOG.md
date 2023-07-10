@@ -1,5 +1,9 @@
 # Privacy Notification Plugin - Change Log
 
+## 5.8 (July 2023)
+
+- Upgraded for Elgg 5.x compatibility
+
 ## 4.7 (July 2023)
 
 - Upgrade for Elgg 4.3.x compatibility, removed depracated code

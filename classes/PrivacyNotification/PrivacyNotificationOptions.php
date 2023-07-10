@@ -14,7 +14,7 @@ class PrivacyNotificationOptions {
         
     /**
      * Get an array with site url identifiers, according the site pages
-     * Read more about Elgg URL identifiers at https://learn.elgg.org/en/4.3/guides/routing.html
+     * Read more about Elgg URL identifiers at https://learn.elgg.org/en/stable/guides/routing.html
      * 
      * @return array
      */
@@ -217,7 +217,7 @@ class PrivacyNotificationOptions {
         if ($user instanceof \ElggUser) {
             $elements = array(
                 'user_guid' => $user->getGUID(),
-                'invitecode' => generate_invite_code($user->username),
+                'invitecode' => elgg_generate_invite_code($user->username),
             );
             
             $url = elgg_normalize_url("privacy_notification/index");

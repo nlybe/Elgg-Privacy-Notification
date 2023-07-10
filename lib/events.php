@@ -4,7 +4,7 @@
  * Elgg Privacy Notification plugin
  * @package privacy_notification
  *
- * All hooks are here
+ * All events are here
  */
 
  use PrivacyNotification\PrivacyNotificationOptions;
@@ -12,13 +12,13 @@
 /**
  * Check after login if user has accept the privacy notification. If not, redirect to notification page
  *  
- * @param \Elgg\Hook $hook
+ * @param \Elgg\Event $event
  * 
  * @return void
  */
-function privacy_notification_acceptance_check(\Elgg\Hook $hook) {
-    $return = $hook->getValue();
-    $user = $hook->getEntityParam();
+function privacy_notification_acceptance_check(\Elgg\Event $event) {
+    $return = $event->getValue();
+    $user = $event->getEntityParam();
 
     if (!$user || PrivacyNotificationOptions::hasAcceptPN($user)) {
         return $return;
@@ -31,12 +31,12 @@ function privacy_notification_acceptance_check(\Elgg\Hook $hook) {
 /**
  * Change identifier if user hasn't accepted the privacy notification
  *  
- * @param \Elgg\Hook $hook
+ * @param \Elgg\Event $event
  * 
  * @return void
  */
-function privacy_notification_acceptance_check_nav(\Elgg\Hook $hook) {
-    $return = $hook->getValue();
+function privacy_notification_acceptance_check_nav(\Elgg\Event $event) {
+    $return = $event->getValue();
     
     // do nothing if privacy notification hasn't been set
     if (!PrivacyNotificationOptions::privacyNotificationIsSet()) {
@@ -65,18 +65,18 @@ function privacy_notification_acceptance_check_nav(\Elgg\Hook $hook) {
 /**
  * Save privacy notification acceptance on registration, if enabled
  * 
- * @param \Elgg\Hook $hook
+ * @param \Elgg\Event $event
  * 
  * @return void
  */
-function privacy_notification_accept_on_registration(\Elgg\Hook $hook) {
-    $return = $hook->getValue();
+function privacy_notification_accept_on_registration(\Elgg\Event $event) {
+    $return = $event->getValue();
     
     if (!PrivacyNotificationOptions::isEnabledOnRegistrattion()) {
         return $result;
     }    
     
-    $user = $hook->getParam('user');
+    $user = $event->getParam('user');
     $acceptance = get_input("accept_privacy_notification");
     if (($user instanceof \ElggUser) && $acceptance == 'yes') {    
         $user->pn_acceptance = time();
@@ -93,19 +93,19 @@ function privacy_notification_accept_on_registration(\Elgg\Hook $hook) {
 /**
  * Add option to users menu for set/unset acceptance
  * 
- * @param \Elgg\Hook $hook
+ * @param \Elgg\Event $event
  * 
  * @return type
  */
-function privacy_notification_user_menu_setup(\Elgg\Hook $hook) {
-    $return = $hook->getValue();
+function privacy_notification_user_menu_setup(\Elgg\Event $event) {
+    $return = $event->getValue();
     
     $user = elgg_get_logged_in_user_entity();
     if (empty($user) || !$user->isAdmin()) {
         return $return;
     }
 
-    $entity = $hook->getEntityParam();    
+    $entity = $event->getEntityParam();    
     $text = elgg_echo("privacy_notification:accept:set");
     if ($entity->pn_acceptance) {
         $text = elgg_echo("privacy_notification:accept:unset");
@@ -120,6 +120,43 @@ function privacy_notification_user_menu_setup(\Elgg\Hook $hook) {
     ));
 
     return $return;
+}
+
+/**
+ * Register menu in admin area
+ * 
+ * @param \Elgg\Event $event
+ */ 
+function privacy_notification_admin_menu(\Elgg\Event $event) {
+    if (!elgg_in_context('admin')) {
+        return null;
+    }
+    
+    /* @var $return MenuItems */
+    $result = $event->getValue();
+    
+    $result[] = \ElggMenuItem::factory([
+        'name' => 'privacy_notification',
+        'text' => elgg_echo('menu:page:header:privacy_notification_section'),
+        'href' => false,
+        'parent_name' => 'configure',
+    ]);
+
+    $result[] = \ElggMenuItem::factory([
+        'name' => 'privacy_notification:pn_users_accepted',
+        'href' => elgg_normalize_url("admin/privacy_notification/users?what=accepted"),
+        'text' => elgg_echo("privacy_notification:admin:menu:users:accepted"),
+        'parent_name' => 'privacy_notification',
+    ]); 
+
+    $result[] = \ElggMenuItem::factory([
+        'name' => 'privacy_notification:pn_users_not_accepted',
+        'href' => elgg_normalize_url("admin/privacy_notification/users?what=not_accepted"),
+        'text' => elgg_echo("privacy_notification:admin:menu:users:not_accepted"),
+        'parent_name' => 'privacy_notification',
+    ]);
+    
+    return $result;
 }
 
 

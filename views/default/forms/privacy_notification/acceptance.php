@@ -13,7 +13,7 @@ if (!PrivacyNotificationOptions::privacyNotificationIsSet()) {
     return $return;
 }
 
-$user_guid = elgg_extract('user_guid', $vars, '');
+$user_guid = (int) elgg_extract('user_guid', $vars, '');
 $user = get_entity($user_guid);
 if (!($user instanceof \ElggUser)) {
     $user = elgg_get_logged_in_user_entity();

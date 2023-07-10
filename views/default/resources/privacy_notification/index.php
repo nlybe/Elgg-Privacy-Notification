@@ -17,7 +17,7 @@ if (!elgg_is_logged_in()) {
 
     if (elgg_validate_invite_code($user->username, $invitecode)) {
         $vars['user_guid'] = $user_guid;
-        $content = elgg_view_form('privacy_notification/acceptance', $form_vars, $vars);
+        $content = elgg_view_form('privacy_notification/acceptance', [], $vars);
         $page_type = 'content';
     } else {
         // just show the privacy notifications
@@ -29,7 +29,7 @@ else if (
         PrivacyNotificationOptions::privacyNotificationIsSet() &&
         !PrivacyNotificationOptions::hasAcceptPN()) {
 
-    $content = elgg_view_form('privacy_notification/acceptance', $form_vars, $vars);
+    $content = elgg_view_form('privacy_notification/acceptance', [], $vars);
     $page_type = 'content';
 } 
 else {
@@ -47,4 +47,4 @@ $params = array(
 
 $body = elgg_view_layout($page_type, $params);
 
-echo elgg_view_page($title, $body);
+echo elgg_view_page("", $body);

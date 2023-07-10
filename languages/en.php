@@ -51,7 +51,7 @@ return [
     'privacy_notification:settings:yes' => "Yes", 
     'privacy_notification:settings:title' => 'Basic Configuration',
     'privacy_notification:settings:identifiers' => 'Pages restricted by privacy policy',
-    'privacy_notification:settings:identifiers:help' => 'Enter a list (comma seperated) of identifiers for sections which user is not able to see before accept the privacy policy. Read more about routing and identifiers on Elgg <a href="http://learn.elgg.org/en/latest/guides/hooks-list.html#routing" target="_blank">here</a>.<br />Example: activity, groups, members, pages',
+    'privacy_notification:settings:identifiers:help' => 'Enter a list (comma seperated) of identifiers for sections which user is not able to see before accept the privacy policy. Read more about routing and identifiers on Elgg <a href="https://learn.elgg.org/en/stable/guides/routing.html" target="_blank">here</a>.<br />Example: activity, groups, members, pages',
     'privacy_notification:settings:enable_on_registration' => 'Enable on registration form',
     'privacy_notification:settings:enable_on_registration:help' => 'Select Yes if want to enable the acceptance of privacy notification during registration form.',
     'privacy_notification:settings:privacy_terms' => 'Privacy Notification Text',
