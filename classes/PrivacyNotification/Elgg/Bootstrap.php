@@ -20,7 +20,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		// Check if registered user have accept the privacy notification, while navigating
 		$identifiers = PrivacyNotificationOptions::getSiteIdentifiers();
 		foreach ($identifiers as $identifier) {
-			elgg_register_plugin_hook_handler('route:rewrite', trim($identifier), 'privacy_notification_acceptance_check_nav');
+			elgg_register_event_handler('route:rewrite', trim($identifier), 'privacy_notification_acceptance_check_nav');
 		}
 	}
 	

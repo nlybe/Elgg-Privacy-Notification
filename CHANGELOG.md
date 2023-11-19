@@ -1,5 +1,9 @@
 # Privacy Notification Plugin - Change Log
 
+## 5.8.1 (Dec 2023)
+
+- Replaced deprecated **elgg_register_plugin_hook_handler** with **elgg_register_event_handler**
+
 ## 5.8 (July 2023)
 
 - Upgraded for Elgg 5.x compatibility

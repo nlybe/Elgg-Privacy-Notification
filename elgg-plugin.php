@@ -11,7 +11,7 @@ require_once(dirname(__FILE__) . '/lib/events.php');
 return [
     'plugin' => [
         'name' => 'Privacy Notification',
-		'version' => '5.8',
+		'version' => '5.8.1',
 		'dependencies' => [
 			'datatables_api' => [
 				'version' => '>5',
