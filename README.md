@@ -1,7 +1,7 @@
 Privacy Notification
 ====================
 
-![Elgg 5.0](https://img.shields.io/badge/Elgg-5.0-orange.svg?style=flat-square)
+![Elgg 5.1](https://img.shields.io/badge/Elgg-5.1-orange.svg?style=flat-square)
 
 Display privacy notification for community members. Useful for General Data Protection Regulation (GDPR) compliance.
 
@@ -15,6 +15,7 @@ Display privacy notification for community members. Useful for General Data Prot
 - Option to require acceptance of privacy notification on registration form.
 - IP address and browser are tracked on privacy acceptance.
 - Option to use invite link for users who haven't accepted the privacy notification yet.
+- Admin can set custom privacy text in settings or use the externalpages privacy text
 
 ## Installation
 

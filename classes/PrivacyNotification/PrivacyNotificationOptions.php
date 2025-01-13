@@ -60,6 +60,11 @@ class PrivacyNotificationOptions {
         if (!empty($privacy_terms)) {
             return true;
         }
+
+        $object = self::getPrivacyObject();
+        if ($object) {
+            return true;
+        }
         
         return false;
     }
@@ -68,10 +73,33 @@ class PrivacyNotificationOptions {
      * Get the privacy notication text which has been entered in settings 
      * @return boolean
      */
+    Public Static function getPrivacyObject() {
+        $objects = elgg_get_entities([
+            'type' => 'object',
+            'subtype' => 'privacy',
+            'limit' => 1,
+        ]);        
+        $object = $objects ? $objects[0] : null;
+        
+        return $object ? $object : false;
+    }
+    
+    /** 
+     * Get the privacy notication text which has been entered in settings 
+     * @return boolean
+     */
     Public Static function getPrivacyNotificationText() {
+        // at first check if the privacy_terms has been set and return this if not
         $privacy_terms = elgg_get_plugin_setting('privacy_terms', self::PLUGIN_ID);
         if (!empty($privacy_terms)) {
             return $privacy_terms;
+        }
+
+        // if privacy_terms is empty, then check the privacy page
+        $object = self::getPrivacyObject();
+        $privacy = $object ? $object->description : '';
+        if (!empty($privacy)) {
+            return $privacy;
         }
         
         return false;
@@ -94,25 +122,6 @@ class PrivacyNotificationOptions {
         
         return false;
     }
-    
-    // /** 
-    //  * Check if privacy notification is enabled on settings
-    //  * 
-    //  * @return boolean
-    //  */
-    // Public Static function isAccountRemovalBtnEnabled() {
-    //     if (!elgg_is_active_plugin("account_removal")) {
-    //         return false;
-    //     }
-        
-    //     $enable_remove_account = elgg_get_plugin_setting('enable_remove_account', self::PLUGIN_ID);
-
-    //     if ($enable_remove_account == self::PARAM_YES) {
-    //         return true;
-    //     }
-        
-    //     return false;
-    // }
     
     /**
      * Track user's browser

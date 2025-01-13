@@ -7,11 +7,12 @@
 use PrivacyNotification\Elgg\Bootstrap;
 
 require_once(dirname(__FILE__) . '/lib/events.php');
+require_once(dirname(__FILE__) . '/lib/functions.php');
 
 return [
     'plugin' => [
         'name' => 'Privacy Notification',
-		'version' => '5.8.1',
+		'version' => '5.9',
 		'dependencies' => [
 			'datatables_api' => [
 				'version' => '>5',

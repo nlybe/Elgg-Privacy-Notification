@@ -11,10 +11,11 @@ if (!PrivacyNotificationOptions::isEnabledOnRegistrattion()) {
 }
 
 $pn = elgg_view('output/url', array(
-    'href' => elgg_normalize_url("privacy_notification"),
+    'href' => elgg_normalize_url("privacy_notification?s=true"),
     'target' => '_blank',
     'text' => elgg_echo('privacy_notification:registration:terms'),
     'title' => elgg_echo('privacy_notification:registration:terms'),
+    'class' => 'elgg-lightbox',
 ));
 
 $checkbox = elgg_view('input/checkbox', [

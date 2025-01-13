@@ -43,6 +43,6 @@ echo elgg_view_field([
     'value' => $plugin->privacy_terms,
     '#label' => elgg_echo('privacy_notification:settings:privacy_terms'),
     '#help' => elgg_echo('privacy_notification:settings:privacy_terms:help'),
-    'required' => true,
+    'required' => false,
 ]);
 

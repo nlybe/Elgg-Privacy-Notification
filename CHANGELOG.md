@@ -1,5 +1,11 @@
 # Privacy Notification Plugin - Change Log
 
+## 5.9 (Jan 2025)
+
+- Use the externalpages privacy text if the custom privacy text has not be set.
+- Resolved removed function issue
+- Minor improvements and code cleanup
+
 ## 5.8.1 (Dec 2023)
 
 - Replaced deprecated **elgg_register_plugin_hook_handler** with **elgg_register_event_handler**
